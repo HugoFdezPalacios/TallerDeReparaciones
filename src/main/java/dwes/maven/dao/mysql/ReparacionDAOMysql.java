@@ -8,21 +8,21 @@ import dwes.maven.entidades.Reparacion;
 public class ReparacionDAOMysql implements ReparacionDAOInterfaz {
 
 	@Override
-	public int insert(Reparacion r) {
+	public void insert(Reparacion r) {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
 	@Override
-	public int update(Reparacion r) {
+	public void update(Reparacion r) {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
 	@Override
-	public int delete(Reparacion r) {
+	public void delete(Reparacion r) {
 		// TODO Auto-generated method stub
-		return 0;
+
 	}
 
 	@Override

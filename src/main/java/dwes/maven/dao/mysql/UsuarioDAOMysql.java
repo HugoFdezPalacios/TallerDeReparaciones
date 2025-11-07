@@ -15,7 +15,7 @@ public class UsuarioDAOMysql implements UsuarioDAOInterfaz {
 
 	@Override
 	public void insert(Usuario u) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

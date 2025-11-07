@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import dwes.maven.entidades.Reparacion;
 
 public interface ReparacionDAOInterfaz {
-	int insert(Reparacion r);
-	int update(Reparacion r);
-	int delete(Reparacion r);
+	void insert(Reparacion r);
+	void update(Reparacion r);
+	void delete(Reparacion r);
 	ArrayList<Reparacion> findall();
 }
