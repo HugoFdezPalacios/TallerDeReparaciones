@@ -2,7 +2,7 @@ package dwes.maven.entidades;
 
 import java.time.LocalDate;
 
-public class Reparaciones {
+public class Reparacion {
 	private int Id_reparacion;
 	private static int siguienteId;
 	private String descripcion;
@@ -14,7 +14,7 @@ public class Reparaciones {
 	private int IdVehiculo;
 	private int IdCliente;
 	
-	public Reparaciones(String descripcion,double costeEstimado, String estado,String matriculaVehiculo,String DniCliente) {
+	public Reparacion(String descripcion,double costeEstimado, String estado,String matriculaVehiculo,String DniCliente) {
 		this.Id_reparacion = siguienteId;
 		siguienteId++;
 		this.descripcion = descripcion;

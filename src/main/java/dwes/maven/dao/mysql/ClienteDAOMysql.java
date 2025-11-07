@@ -1,38 +1,43 @@
 package dwes.maven.dao.mysql;
 
-import dwes.maven.dao.interfaces.CienteDAOInterfaz;
+import java.util.ArrayList;
+
+import dwes.maven.dao.interfaces.ClienteDAOInterfaz;
+import dwes.maven.entidades.Cliente;
 
 
-public class ClienteDAOMysql implements CienteDAOInterfaz{
+public class ClienteDAOMysql implements ClienteDAOInterfaz{
 
 	@Override
-	public int insert(Cliente c) {
+	public void insert(Cliente cliente) {
+		// TODO Auto-generated method stub
 		
-		return 0;
 	}
 
 	@Override
-	public int update(Cliente c) {
+	public void update(Cliente cliente) {
+		// TODO Auto-generated method stub
 		
-		return 0;
 	}
 
 	@Override
-	public int delete(Cliente c) {
+	public void delete(Cliente cliente) {
+		// TODO Auto-generated method stub
 		
-		return 0;
 	}
 
 	@Override
-	public void findall() {
-		
-		
+	public ArrayList<Cliente> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Cliente findByDni(String dni) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
