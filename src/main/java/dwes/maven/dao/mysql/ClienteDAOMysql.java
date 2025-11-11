@@ -4,10 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import dwes.maven.controlador.ControladorTaller;
 import dwes.maven.dao.DBConnection;
 import dwes.maven.dao.interfaces.ClienteDAOInterfaz;
 import dwes.maven.entidades.Cliente;
@@ -29,14 +27,12 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz{
 			// PreparedStatement
 			String sql = "INSERT INTO cliente (id_cliente, nombre, email, dni, telefono) VALUES(?, ?, ?, ?, ?);";
 			PreparedStatement pst = conexion.prepareStatement(sql);
-			pst.setInt(1, 1); // posicion 1, valor 1
-			pst.setString(2, "Gonzalo");
-			pst.setInt(3, 35);
-			pst.setString(4, "123456789");
+			pst.setInt(1, cliente.getId_cliente()); 
+			pst.setString(2, cliente.getNombre());
+			pst.setString(3, cliente.getEmail());
+			pst.setString(4, cliente.getDNI());
+			pst.setInt(0, cliente.getTelefono());
 
-			LocalDate fechaToday = LocalDate.now();
-			pst.setDate(5, java.sql.Date.valueOf(fechaToday));
-			pst.setString(6, ControladorTaller.hashPassword("Dwes123"));
 			int resul = pst.executeUpdate();
 			System.out.println("resultado de inserccion:" + resul);
 		} catch (SQLException e) {
@@ -57,6 +53,7 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz{
 
 			pst.setInt(1, 15);
 			resultado = pst.executeQuery();
+			
 
 			while (resultado.next()) {
 				String nombre = resultado.getString("nombre");
@@ -95,7 +92,7 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz{
 
 	@Override
 	public void delete(Cliente cliente) {
-		String sqlDelete = "DELETE FROM cliente WHERE id = ?;";
+		String sqlDelete = "DELETE FROM cliente WHERE id_cliente = ?;";
 		try {
 			PreparedStatement pst = conexion.prepareStatement(sqlDelete);
 			pst.setInt(1, 1); // borrar id

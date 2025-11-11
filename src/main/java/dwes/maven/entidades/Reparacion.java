@@ -25,4 +25,36 @@ public class Reparacion {
 		this.IdCliente= IdCliente; //buscaClientePorDNI.getId();
 		//Pido el dni del cliente en el constructor para buscar su id medienate el dni.
 	}
+
+	public int getId_reparacion() {
+		return Id_reparacion;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public LocalDate getFechaEntrada() {
+		return fechaEntrada;
+	}
+
+	public double getCosteEstimado() {
+		return costeEstimado;
+	}
+
+	public void setCosteEstimado(double costeEstimado) {
+		this.costeEstimado = costeEstimado;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 }

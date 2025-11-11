@@ -18,4 +18,38 @@ public class Vehiculo {
 		this.cliente_id= cliente_id; //buscaClientePorDNI.getId();
 		//Pido el dni del cliente en el constructor para buscar su id medienate el dni.
 	}
+
+	public int getCliente_id() {
+		return cliente_id;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+
+	public int getId_vehiculo() {
+		return Id_vehiculo;
+	}
+
 }
