@@ -14,7 +14,7 @@ public class Reparacion {
 	private int IdVehiculo;
 	private int IdCliente;
 	
-	public Reparacion(String descripcion,double costeEstimado, String estado,String matriculaVehiculo,String DniCliente) {
+	public Reparacion(String descripcion,double costeEstimado, String estado,String matriculaVehiculo) {
 		this.Id_reparacion = siguienteId;
 		siguienteId++;
 		this.descripcion = descripcion;

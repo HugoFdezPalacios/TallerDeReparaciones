@@ -45,14 +45,18 @@ public class UsuarioDAOMysql implements UsuarioDAOInterfaz {
 
 	@Override
 	public ArrayList<Usuario> findall() {
-		// TODO Auto-generated method stub
-		return null;
+		return listaUsuarios;
 	}
 
 	@Override
-	public Usuario findByNombre(String nombre) {
-		// Metodo que devolvera un usario a partir de un nombre, en caso de que haya varios se devolveran todos.
+	public Usuario findByDNI(String dni) {
+		for (int i = 0; i < listaUsuarios.size(); i++) {
+			if (listaUsuarios.get(i).getDNI().equals(dni)) {
+				return listaUsuarios.get(i);
+			}
+		}
 		return null;
 	}
+	}
 	
-}
+

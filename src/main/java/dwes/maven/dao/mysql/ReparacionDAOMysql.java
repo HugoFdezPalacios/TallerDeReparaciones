@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import dwes.maven.controlador.ControladorTaller;
 import dwes.maven.dao.DBConnection;
 import dwes.maven.dao.interfaces.ReparacionDAOInterfaz;
 import dwes.maven.entidades.Reparacion;
@@ -31,10 +30,7 @@ public class ReparacionDAOMysql implements ReparacionDAOInterfaz {
 			pst.setString(2, "Gonzalo");
 			pst.setInt(3, 35);
 			pst.setString(4, "123456789");
-
-			LocalDate fechaToday = LocalDate.now();
-			pst.setDate(5, java.sql.Date.valueOf(fechaToday));
-			pst.setString(6, ControladorTaller.hashPassword("Dwes123"));
+			pst.setDate(5, java.sql.Date.valueOf(r.getFechaEntrada()));
 			int resul = pst.executeUpdate();
 			System.out.println("resultado de inserccion:" + resul);
 		} catch (SQLException e) {
@@ -112,8 +108,7 @@ public class ReparacionDAOMysql implements ReparacionDAOInterfaz {
 
 	@Override
 	public ArrayList<Reparacion> findall() {
-		// TODO Auto-generated method stub
-		return null;
+		return listaReparacioness;
 	}
 
 }

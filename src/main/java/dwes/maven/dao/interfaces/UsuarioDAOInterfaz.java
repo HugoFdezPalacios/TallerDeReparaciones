@@ -7,6 +7,7 @@ import dwes.maven.entidades.Usuario;
 public interface UsuarioDAOInterfaz {
 	void login(String dni, String password);
 	void insert(Usuario u);
+	 ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 	ArrayList<Usuario> findall();
-	Usuario findByNombre(String nombre);
+	Usuario findByDNI(String dni);
 }

@@ -10,24 +10,21 @@ import dwes.maven.dao.DBConnection;
 import dwes.maven.dao.interfaces.ClienteDAOInterfaz;
 import dwes.maven.entidades.Cliente;
 
-public class ClienteDAOMysql implements ClienteDAOInterfaz{
-	
+public class ClienteDAOMysql implements ClienteDAOInterfaz {
+
 	private Connection conexion;
-	
+
 	public ClienteDAOMysql() {
 		conexion = DBConnection.getInstance().getConnection();
 	}
-	
-	
-	
-	
+
 	@Override
 	public void insert(Cliente cliente) {
 		try {
 			// PreparedStatement
 			String sql = "INSERT INTO cliente (id_cliente, nombre, email, dni, telefono) VALUES(?, ?, ?, ?, ?);";
 			PreparedStatement pst = conexion.prepareStatement(sql);
-			pst.setInt(1, cliente.getId_cliente()); 
+			pst.setInt(1, cliente.getId_cliente());
 			pst.setString(2, cliente.getNombre());
 			pst.setString(3, cliente.getEmail());
 			pst.setString(4, cliente.getDNI());
@@ -38,7 +35,7 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz{
 		} catch (SQLException e) {
 			System.out.println("> NOK:" + e.getMessage());
 		}
-		
+
 	}
 
 	@Override
@@ -53,14 +50,12 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz{
 
 			pst.setInt(1, 15);
 			resultado = pst.executeQuery();
-			
 
 			while (resultado.next()) {
 				String nombre = resultado.getString("nombre");
 //				resultado.updateInt("edad", edadActual + 5);
 				resultado.updateRow();
-				System.out
-						.println("> La edad del cliente  " + nombre + " se modificado a " + resultado.getInt("edad"));
+				System.out.println("> La edad del cliente  " + nombre + " se modificado a " + resultado.getInt("edad"));
 			}
 
 			conexion.commit();
@@ -88,7 +83,6 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz{
 		}
 
 	}
-		
 
 	@Override
 	public void delete(Cliente cliente) {
@@ -108,20 +102,23 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public ArrayList<Cliente> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return listaClientes;
 	}
 
 	@Override
 	public Cliente findByDni(String dni) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-}
 
+		for (int i = 0; i < listaClientes.size(); i++) {
+			if (listaClientes.get(i).getDNI().equals(dni)) {
+				return listaClientes.get(i);
+			}
+		}
+		return null;
+
+	}
+}

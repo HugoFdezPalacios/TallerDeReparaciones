@@ -10,9 +10,9 @@ import dwes.maven.dao.DBConnection;
 import dwes.maven.dao.interfaces.VehiculoDAOInterfaz;
 import dwes.maven.entidades.Vehiculo;
 
-public class VehiculoDAOMysql implements VehiculoDAOInterfaz{
+public class VehiculoDAOMysql implements VehiculoDAOInterfaz {
 	private Connection conexion;
-	
+
 	public VehiculoDAOMysql() {
 		conexion = DBConnection.getInstance().getConnection();
 	}
@@ -34,7 +34,7 @@ public class VehiculoDAOMysql implements VehiculoDAOInterfaz{
 		} catch (SQLException e) {
 			System.out.println("> NOK:" + e.getMessage());
 		}
-		
+
 	}
 
 	@Override
@@ -54,8 +54,7 @@ public class VehiculoDAOMysql implements VehiculoDAOInterfaz{
 				String nombre = resultado.getString("nombre");
 //				resultado.updateInt("edad", edadActual + 5);
 				resultado.updateRow();
-				System.out
-						.println("> La edad del cliente  " + nombre + " se modificado a " + resultado.getInt("edad"));
+				System.out.println("> La edad del cliente  " + nombre + " se modificado a " + resultado.getInt("edad"));
 			}
 
 			conexion.commit();
@@ -81,7 +80,7 @@ public class VehiculoDAOMysql implements VehiculoDAOInterfaz{
 				}
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -102,21 +101,24 @@ public class VehiculoDAOMysql implements VehiculoDAOInterfaz{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public ArrayList<Vehiculo> findall() {
-		return null;
-		// TODO Auto-generated method stub
-		
+		return listaVehiculos;
+
 	}
 
 	@Override
 	public Vehiculo findByMatricula(String matricula) {
+		for (int i = 0; i < listaVehiculos.size(); i++) {
+			if (listaVehiculos.get(i).getMatricula().equals(matricula)) {
+				return listaVehiculos.get(i);
+			}
+		}
 		return null;
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }
