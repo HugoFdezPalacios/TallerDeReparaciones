@@ -9,22 +9,29 @@ public class Reparacion {
 	private LocalDate fechaEntrada;
 	private double costeEstimado;
 	private String estado;	//Hacer una enumeracion para estado
-	private String matriculaVehiculo;
-	private String DniCliente;
 	private int IdVehiculo;
 	private int IdCliente;
 	
-	public Reparacion(String descripcion,double costeEstimado, String estado,String matriculaVehiculo) {
+	public Reparacion(String descripcion,double costeEstimado, String estado,Vehiculo vehiculo) {
 		this.Id_reparacion = siguienteId;
 		siguienteId++;
 		this.descripcion = descripcion;
 		this.fechaEntrada = LocalDate.now();
 		this.costeEstimado = costeEstimado;
 		this.estado = estado;
-		this.IdVehiculo = IdVehiculo; // exactamente igual que con el dni.
-		this.IdCliente= IdCliente; //buscaClientePorDNI.getId();
-		//Pido el dni del cliente en el constructor para buscar su id medienate el dni.
+		this.IdVehiculo = vehiculo.getId_vehiculo();
+		this.IdCliente=vehiculo.getCliente_id();
 	}
+
+	public int getIdVehiculo() {
+		return IdVehiculo;
+	}
+
+
+	public int getIdCliente() {
+		return IdCliente;
+	}
+
 
 	public int getId_reparacion() {
 		return Id_reparacion;
@@ -57,4 +64,6 @@ public class Reparacion {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	
+	
 }

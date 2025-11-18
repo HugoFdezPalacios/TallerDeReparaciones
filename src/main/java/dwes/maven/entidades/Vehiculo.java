@@ -6,17 +6,15 @@ public class Vehiculo {
 	private String matricula;
 	private String marca;
 	private String modelo;
-	private String dni_cliente;
 	private int cliente_id;
 	
-	public Vehiculo(String matricula, String marca, String modelo, String dni_cliente) {
+	public Vehiculo(String matricula, String marca, String modelo, Cliente cliente) {
 		this.matricula = matricula;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.Id_vehiculo = siguienteId;
 		siguienteId++;
-		this.cliente_id= cliente_id; //buscaClientePorDNI.getId();
-		//Pido el dni del cliente en el constructor para buscar su id medienate el dni.
+		this.cliente_id= cliente.getId_cliente();	
 	}
 
 	public int getCliente_id() {

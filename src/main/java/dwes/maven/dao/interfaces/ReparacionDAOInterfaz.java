@@ -6,8 +6,9 @@ import dwes.maven.entidades.Reparacion;
 
 public interface ReparacionDAOInterfaz {
 	void insert(Reparacion r);
-	void update(Reparacion r);
+	void updateFinalizado(Reparacion r);
 	void delete(Reparacion r);
-	 ArrayList<Reparacion> listaReparacioness = new ArrayList<Reparacion>();
+	 ArrayList<Reparacion> listaReparaciones = new ArrayList<Reparacion>();
 	ArrayList<Reparacion> findall();
+	void updateEnCurso(Reparacion r);
 }

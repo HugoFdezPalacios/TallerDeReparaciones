@@ -29,6 +29,18 @@ public class VehiculoDAOMysql implements VehiculoDAOInterfaz {
 			pst.setString(4, vehiculo.getModelo());
 			pst.setInt(5, vehiculo.getCliente_id());
 
+			boolean existe = false;
+			for (Vehiculo v : listaVehiculos) {
+				if (v.getId_vehiculo() == vehiculo.getId_vehiculo()) {
+					existe = true;
+					break;
+				}
+			}
+
+			if (!existe) {
+				listaVehiculos.add(vehiculo);
+			}
+
 			int resul = pst.executeUpdate();
 			System.out.println("resultado de inserccion:" + resul);
 		} catch (SQLException e) {
@@ -88,13 +100,15 @@ public class VehiculoDAOMysql implements VehiculoDAOInterfaz {
 		String sqlDelete = "DELETE FROM vehiculo WHERE id_vehiculo = ?;";
 		try {
 			PreparedStatement pst = conexion.prepareStatement(sqlDelete);
-			pst.setInt(1, 1); // borrar id
+			pst.setInt(1, vehiculo.getId_vehiculo()); // borrar id
 			int filas = pst.executeUpdate();
 
 			if (filas > 0) {
-				System.out.println("> OK. cliente con id 1 eliminada correctamente.");
+				System.out.println("> OK. cliente con id" + vehiculo.getId_vehiculo() + " eliminada correctamente.");
+				listaVehiculos.remove(vehiculo);
 			} else {
-				System.out.println("> NOK. cliente con id 1 no se encuentra en la base de datos.");
+				System.out.println(
+						"> NOK. cliente con id" + vehiculo.getId_vehiculo() + " no se encuentra en la base de datos.");
 			}
 
 		} catch (SQLException e) {

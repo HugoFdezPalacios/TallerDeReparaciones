@@ -18,7 +18,7 @@ public class UsuarioDAOMysql implements UsuarioDAOInterfaz {
 
 	@Override
 	public void login(String dni, String password) {
-		// Metodo que se utilizara para logearse mediante la validacion de un DNi y una contraseña asociados a un usuario.
+		
 		
 	}
 

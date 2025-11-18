@@ -29,9 +29,24 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz {
 			pst.setString(3, cliente.getEmail());
 			pst.setString(4, cliente.getDNI());
 			pst.setInt(0, cliente.getTelefono());
+			
+			boolean existe= false;
+			
+			for (Cliente cli : listaClientes) {
+			    if (cli.getId_cliente() == cliente.getId_cliente()) {
+			        existe = true;
+			        break;
+			    }
+			}
+
+			if (!existe) {
+			    listaClientes.add(cliente);
+			}
+
 
 			int resul = pst.executeUpdate();
 			System.out.println("resultado de inserccion:" + resul);
+			listaClientes.add(cliente);
 		} catch (SQLException e) {
 			System.out.println("> NOK:" + e.getMessage());
 		}
@@ -48,7 +63,7 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz {
 																									// cambios
 					ResultSet.CONCUR_UPDATABLE); // Permite modificar
 
-			pst.setInt(1, 15);
+			pst.setInt(1, cliente.getId_cliente());
 			resultado = pst.executeQuery();
 
 			while (resultado.next()) {
@@ -89,13 +104,14 @@ public class ClienteDAOMysql implements ClienteDAOInterfaz {
 		String sqlDelete = "DELETE FROM cliente WHERE id_cliente = ?;";
 		try {
 			PreparedStatement pst = conexion.prepareStatement(sqlDelete);
-			pst.setInt(1, 1); // borrar id
+			pst.setInt(1, cliente.getId_cliente()); //borrar id 
 			int filas = pst.executeUpdate();
 
 			if (filas > 0) {
-				System.out.println("> OK. cliente con id 1 eliminada correctamente.");
+				System.out.println("> OK. cliente con id " + cliente.getId_cliente() +  " eliminada correctamente.");
+				listaClientes.remove(cliente);
 			} else {
-				System.out.println("> NOK. cliente con id 1 no se encuentra en la base de datos.");
+				System.out.println("> NOK. cliente con id " + cliente.getId_cliente() +  "no se encuentra en la base de datos.");
 			}
 
 		} catch (SQLException e) {
