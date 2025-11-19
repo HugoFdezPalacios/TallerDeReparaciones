@@ -10,6 +10,9 @@ public class Reparacion {
 	private double costeEstimado;
 	private String estado;	//Hacer una enumeracion para estado
 	private int IdVehiculo;
+	private int usuario_id;
+	
+
 	private int IdCliente;
 	
 	public Reparacion(String descripcion,double costeEstimado, String estado,Vehiculo vehiculo) {
@@ -20,7 +23,23 @@ public class Reparacion {
 		this.costeEstimado = costeEstimado;
 		this.estado = estado;
 		this.IdVehiculo = vehiculo.getId_vehiculo();
-		this.IdCliente=vehiculo.getCliente_id();
+		
+	}
+
+	public void setId_reparacion(int id_reparacion) {
+		Id_reparacion = id_reparacion;
+	}
+
+	public void setFechaEntrada(LocalDate fechaEntrada) {
+		this.fechaEntrada = fechaEntrada;
+	}
+
+	public void setIdVehiculo(int idVehiculo) {
+		IdVehiculo = idVehiculo;
+	}
+
+	public void setIdCliente(int idCliente) {
+		IdCliente = idCliente;
 	}
 
 	public int getIdVehiculo() {
@@ -64,6 +83,12 @@ public class Reparacion {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
+	public int getUsuario_id() {
+		return usuario_id;
+	}
+
+	public void setUsuario_id(int usuario_id) {
+		this.usuario_id = usuario_id;
+	}
 	
 }

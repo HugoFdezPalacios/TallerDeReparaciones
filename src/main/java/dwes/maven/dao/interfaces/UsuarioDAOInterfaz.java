@@ -10,4 +10,5 @@ public interface UsuarioDAOInterfaz {
 	 ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 	ArrayList<Usuario> findall();
 	Usuario findByDNI(String dni);
+	void login(Usuario u, String dni, String password);
 }

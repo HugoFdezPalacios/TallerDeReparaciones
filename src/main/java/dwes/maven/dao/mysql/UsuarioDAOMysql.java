@@ -8,17 +8,26 @@ import java.util.ArrayList;
 import dwes.maven.dao.DBConnection;
 import dwes.maven.dao.interfaces.UsuarioDAOInterfaz;
 import dwes.maven.entidades.Usuario;
+import dwes.maven.utilities.PasswordUtils;
 
 public class UsuarioDAOMysql implements UsuarioDAOInterfaz {
 	private Connection conexion;
-	
+
 	public UsuarioDAOMysql() {
 		conexion = DBConnection.getInstance().getConnection();
 	}
 
 	@Override
-	public void login(String dni, String password) {
+	public void login(Usuario u,String DNI, String password) {
 		
+		if(u.getDNI().equals(DNI) && PasswordUtils.verifyPassword(u.getPassword(), password)){
+			
+			
+			
+			
+		} else {
+			System.out.println("Usuario o contraseña inválidos");
+		}
 		
 	}
 
@@ -34,13 +43,12 @@ public class UsuarioDAOMysql implements UsuarioDAOInterfaz {
 			pst.setString(4, u.getRol());
 			pst.setString(5, u.getDNI());
 
-
 			int resul = pst.executeUpdate();
 			System.out.println("resultado de inserccion:" + resul);
 		} catch (SQLException e) {
 			System.out.println("> NOK:" + e.getMessage());
 		}
-		
+
 	}
 
 	@Override
@@ -57,6 +65,10 @@ public class UsuarioDAOMysql implements UsuarioDAOInterfaz {
 		}
 		return null;
 	}
-	}
-	
 
+	@Override
+	public void login(String dni, String password) {
+		// TODO Auto-generated method stub
+
+	}
+}

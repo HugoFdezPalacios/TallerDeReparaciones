@@ -1,5 +1,7 @@
 package dwes.maven.dao;
 
+import java.sql.Connection;
+
 import dwes.maven.dao.interfaces.ClienteDAOInterfaz;
 import dwes.maven.dao.interfaces.ReparacionDAOInterfaz;
 import dwes.maven.dao.interfaces.UsuarioDAOInterfaz;
@@ -10,6 +12,11 @@ import dwes.maven.dao.mysql.UsuarioDAOMysql;
 import dwes.maven.dao.mysql.VehiculoDAOMysql;
 
 public class MysqlDAOFactory implements DAOFactory{
+	
+	private Connection conexion;
+	public MysqlDAOFactory(Connection conexion) {
+		this.conexion = conexion;
+	}
 
 	public ClienteDAOInterfaz getCLienteDAOInterfaz() {
 		return new ClienteDAOMysql();

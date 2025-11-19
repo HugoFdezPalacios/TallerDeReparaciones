@@ -22,8 +22,9 @@ public class ReparacionDAOMysql implements ReparacionDAOInterfaz {
 	@Override
 	public void insert(Reparacion r) {
 		try {
+			//Aquirir un el id de usuario previamente y setearlo antes de insertar la reparacion;
 			// PreparedStatement
-			String sql = "INSERT INTO reparacion (id_reparacion, descripcion, fecha_entrada, coste_estimado, estado, vehiculo_id,cliente_id) VALUES(?, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO reparacion (id_reparacion, descripcion, fecha_entrada, coste_estimado, estado, vehiculo_id, usuario_id) VALUES(?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement pst = conexion.prepareStatement(sql);
 			pst.setInt(1, r.getId_reparacion()); // posicion 1, valor 1
 			pst.setString(2, r.getDescripcion());
@@ -31,7 +32,7 @@ public class ReparacionDAOMysql implements ReparacionDAOInterfaz {
 			pst.setDouble(4, r.getCosteEstimado());
 			pst.setString(5, r.getEstado());
 			pst.setInt(6,r.getIdVehiculo());
-			pst.setInt(7, r.getIdCliente());
+			pst.setInt(7, r.getUsuario_id());
 			boolean existe = false;
 
 			for (Reparacion rep : listaReparaciones) {
@@ -58,7 +59,7 @@ public class ReparacionDAOMysql implements ReparacionDAOInterfaz {
 		try {
 			ResultSet resultado = null;
 			conexion.setAutoCommit(false);
-			String sql = "SELECT id_reparacion, descripcion, fecha_entrada, coste_estimado, estado, vehiculo_id,cliente_id FROM reparaion WHERE id_reparacion = ?";
+			String sql = "SELECT id_reparacion, descripcion, fecha_entrada, coste_estimado, estado, vehiculo_id, usuario_id FROM reparaion WHERE id_reparacion = ?";
 			PreparedStatement pst = conexion.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, // Sensible a
 																									// cambios
 					ResultSet.CONCUR_UPDATABLE); // Permite modificar
@@ -126,17 +127,72 @@ public class ReparacionDAOMysql implements ReparacionDAOInterfaz {
 	    return listaReparaciones;
 	}
 	
+	public ArrayList<Reparacion> findByEstadoFinalizado() {
+	    ArrayList<Reparacion> listaFinalizados = new ArrayList<>();
+
+	    String sql = "SELECT id_reparacion, descripcion, fecha_entrada, coste_estimado, estado, vehiculo_id, usuario_id FROM reparacion WHERE estado = ?";
+
+	    try (PreparedStatement pst = conexion.prepareStatement(sql)) {
+
+	        pst.setString(1, "finalizado");  
+
+	        try (ResultSet rs = pst.executeQuery()) {
+	            while (rs.next()) {
+
+	                Reparacion r = new Reparacion(rs.getString("descripcion"), rs.getDouble("coste_estimado"), rs.getString("estado"), null);
+	                r.setId_reparacion(rs.getInt("id_reparacion"));
+	                r.setFechaEntrada(rs.getDate("fecha_entrada").toLocalDate());
+	                r.setIdVehiculo(rs.getInt("vehiculo_id"));
+	                r.setIdCliente(rs.getInt("cliente_id"));
+
+	                listaFinalizados.add(r);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("> Error obteniendo reparaciones finalizadas: " + e.getMessage());
+	    }
+
+	    return listaFinalizados;
+	}
+	
+	
+	
 	public void VerReparacionesPorEstadisticas() {
-		
+
+	    String sql = 
+	        "SELECT estado, COUNT(*) AS total, AVG(coste_estimado) AS coste_medio " +
+	        "FROM reparacion " +
+	        "GROUP BY estado";
+
+	    try (PreparedStatement pst = conexion.prepareStatement(sql);
+	         ResultSet rs = pst.executeQuery()) {
+
+	        System.out.println("\n========== ESTADÍSTICAS DE REPARACIONES ==========");
+
+	        while (rs.next()) {
+	            String estado = rs.getString("estado");
+	            int total = rs.getInt("total");
+	            double costeMedio = rs.getDouble("coste_medio");
+
+	            System.out.println("> Estado: " + estado);
+	            System.out.println("  Total reparaciones: " + total);
+	            System.out.println("  Coste medio: " + costeMedio + " €");
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("> Error obteniendo estadísticas: " + e.getMessage());
+	    }
 	}
 
-
+	
+	
 	@Override
 	public void updateFinalizado(Reparacion r) {
 		try {
 			ResultSet resultado = null;
 			conexion.setAutoCommit(false);
-			String sql = "SELECT id_reparacion, descripcion, fecha_entrada, coste_estimado, estado, vehiculo_id,cliente_id FROM reparaion WHERE id_reparacion = ?";
+			String sql = "SELECT id_reparacion, descripcion, fecha_entrada, coste_estimado, estado, vehiculo_id, usuario_id FROM reparaion WHERE id_reparacion = ?";
 			PreparedStatement pst = conexion.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, // Sensible a
 																									// cambios
 					ResultSet.CONCUR_UPDATABLE); // Permite modificar
